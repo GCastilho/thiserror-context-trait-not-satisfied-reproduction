@@ -1,6 +1,5 @@
-use std::env;
-
 use sqlx::{sqlite::SqlitePoolOptions, Pool, Sqlite};
+use std::env;
 use thiserror::Error;
 use thiserror_context::{impl_context, Context};
 
@@ -12,13 +11,14 @@ enum InnerA {
 
 impl_context!(OuterA(InnerA));
 
-#[derive(Debug, Error)]
-enum InnerB {
-    #[error("InnerB Sqlx")]
-    Sqlx(#[from] sqlx::Error),
-}
+// Uncoment these lines for error to occur
+// #[derive(Debug, Error)]
+// enum InnerB {
+//     #[error("InnerB Sqlx")]
+//     Sqlx(#[from] sqlx::Error),
+// }
 
-impl_context!(OuterB(InnerB));
+// impl_context!(OuterB(InnerB));
 
 #[tokio::main]
 async fn main() {
